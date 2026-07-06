@@ -1,0 +1,32 @@
+# ===== Python =====
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# ===== Node / 前端 =====
+chat_interface/node_modules/
+chat_interface/.npm-cache/
+chat_interface/dist/
+
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.swp
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db
+
+# ===== 日志 =====
+*.log
+uvicorn.log
+
+# ===== 敏感信息 =====
+# 密码和 API Key 不应硬编码在代码中，建议后续改用环境变量
+
+# ===== 杂项 =====
+test.http
+text.py

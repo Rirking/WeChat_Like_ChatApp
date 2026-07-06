@@ -1,0 +1,817 @@
+/* ============================================
+   聊天室 —— 全局样式
+   简约微信风格，白底绿气泡，无第三方 UI 库
+   ============================================ */
+
+/* --- 基础重置 --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background-color: #ededed;
+  color: #333;
+  /* 移动端禁止缩放 */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --- 登录页 --- */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #07c160;           /* 微信绿 */
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.login-card {
+  width: 320px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.login-card label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.login-card input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.login-card input:focus {
+  border-color: #07c160;
+}
+
+.login-card .btn {
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.btn-primary {
+  background-color: #07c160;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.login-card .tip {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+}
+
+.login-card .tip a {
+  color: #07c160;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-card .error-msg {
+  color: #e74c3c;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* --- 聊天列表页 --- */
+.chatlist-page {
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.chatlist-header {
+  height: 50px;
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid #d9d9d9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.chatlist-header .title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.chatlist-header .logout-btn {
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.friend-item:hover {
+  background: #f5f5f5;
+}
+
+/* 头像占位（纯色圆圈 + 首字，不依赖图片） */
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  background: #07c160;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* 头像图片（有头像时覆盖绿色占位） */
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.friend-info .name {
+  font-size: 16px;
+}
+
+.friend-info .username {
+  font-size: 12px;
+  color: #999;
+}
+
+/* --- 聊天窗口页 --- */
+.chat-window {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.chat-header {
+  height: 50px;
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid #d9d9d9;
+  flex-shrink: 0;
+}
+
+.chat-header .back-btn {
+  font-size: 16px;
+  color: #07c160;
+  cursor: pointer;
+  border: none;
+  background: none;
+  margin-right: 12px;
+  padding: 4px 8px;
+}
+
+.chat-header .name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 消息列表区域，占满剩余高度，可滚动 */
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+/* 单条消息行 */
+.msg-row {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+/* 自己发的消息靠右 */
+.msg-row.self {
+  justify-content: flex-end;
+}
+
+/* 消息气泡 */
+.msg-bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: break-all;
+  position: relative;
+}
+
+/* 别人的消息：白底 */
+.msg-row.other .msg-bubble {
+  background: #fff;
+  color: #333;
+}
+
+/* 自己的消息：微信绿 */
+.msg-row.self .msg-bubble {
+  background: #95ec69;
+  color: #000;
+}
+
+/* 消息时间 */
+.msg-time {
+  font-size: 11px;
+  color: #b2b2b2;
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* 消息已读/未读状态标签 */
+.read-status {
+  margin-left: 6px;
+  font-size: 11px;
+  color: #999;
+}
+
+/* 发送区，固定在底部 */
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: #f7f7f7;
+  border-top: 1px solid #d9d9d9;
+  flex-shrink: 0;
+}
+
+.chat-input-area input {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0 12px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+}
+
+.chat-input-area input:focus {
+  border-color: #07c160;
+}
+
+.chat-input-area .send-btn {
+  margin-left: 10px;
+  height: 36px;
+  padding: 0 20px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* --- 空状态 --- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #999;
+  font-size: 15px;
+}
+
+/* --- 加载中 --- */
+.loading-text {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  padding: 16px;
+}
+
+/* ============================================
+   新增：搜索区域 + 好友申请页
+   ============================================ */
+
+/* 搜索区域 */
+.search-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 8px;
+}
+
+.search-area input {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-area input:focus {
+  border-color: #07c160;
+}
+
+.search-btn {
+  height: 36px;
+  padding: 0 16px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.search-btn:disabled {
+  background: #b2b2b2;
+}
+
+/* 搜索结果卡片 */
+.search-result {
+  border-bottom: 1px solid #f0f0f0;
+  background: #f9f9f9;
+  padding: 10px 12px;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+}
+
+.search-item .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: #07c160;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.search-item .friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-item .friend-info .name {
+  font-size: 15px;
+}
+
+.search-item .friend-info .username {
+  font-size: 12px;
+  color: #999;
+}
+
+.add-btn {
+  padding: 6px 14px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.add-btn:disabled {
+  background: #b2b2b2;
+}
+
+/* 搜索/添加提示 */
+.search-msg {
+  font-size: 13px;
+  margin-top: 6px;
+  color: #07c160;
+}
+
+.search-msg.error {
+  color: #e74c3c;
+}
+
+/* 顶部栏右侧按钮组 */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-btn {
+  font-size: 13px;
+  color: #07c160;
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: relative;
+  padding: 4px 6px;
+}
+
+/* 未读小红点 */
+.badge {
+  display: inline-block;
+  min-width: 18px;
+  height: 18px;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 9px;
+  padding: 0 4px;
+  margin-left: 2px;
+}
+
+/* --- Tab 切换栏 --- */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  color: #999;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #07c160;
+  font-weight: 600;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: #07c160;
+}
+
+/* --- 申请列表项 --- */
+.request-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.request-item .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: #07c160;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.request-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.request-info .name {
+  font-size: 15px;
+}
+
+.request-info .msg {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+/* 状态标签 */
+.status-tag {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.status-tag.accepted {
+  color: #07c160;
+}
+
+.status-tag.rejected {
+  color: #999;
+}
+
+/* 申请操作按钮组 */
+.request-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.accept-btn {
+  padding: 6px 14px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.reject-btn {
+  padding: 6px 14px;
+  background: #fff;
+  color: #999;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  padding: 6px 14px;
+  background: #fff;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Toast 操作提示 */
+.toast-msg {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 100;
+  max-width: 80%;
+  text-align: center;
+}
+
+/* ============================================
+   新增：个人资料页样式
+   ============================================ */
+
+.profile-content {
+  padding: 20px;
+}
+
+.profile-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.profile-avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+
+.profile-avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #07c160;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-tip {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #999;
+}
+
+.profile-form label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #666;
+}
+
+.profile-form input,
+.profile-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+  border-color: #07c160;
+}
+
+.profile-form input:disabled {
+  background: #f5f5f5;
+  color: #999;
+}
+
+.save-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 返回按钮（通用，profile/ai-analysis 页面用） */
+.back-btn {
+  background: none;
+  border: none;
+  color: #07c160;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ============================================
+   新增：AI 分析页样式
+   ============================================ */
+
+.ai-input-area {
+  padding: 16px;
+}
+
+.ai-input-area textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.ai-input-area textarea:focus {
+  border-color: #07c160;
+}
+
+.analyze-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.analyze-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-result {
+  padding: 16px;
+}
+
+.result-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.result-content {
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 60px;
+}
+
+/* AI 分析按钮（聊天输入栏里的 🤖） */
+.ai-btn {
+  margin-left: 8px;
+  height: 36px;
+  width: 36px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-btn:hover {
+  background: #e0e0e0;
+}
+
+/* WebSocket 连接状态指示器 */
+.ws-status {
+  font-size: 11px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.ws-status.connected {
+  color: #07c160;
+}
+
+.ws-status.disconnected {
+  color: #e74c3c;
+}
